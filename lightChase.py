@@ -86,24 +86,11 @@ while True:
   backRight=ReadChannel(2)
   backLeft=ReadChannel(3)
  
-  frontR=frontRight<200
-  frontL=frontLeft<200
-  backR=backRight<200
-  backL=backLeft<200
-
-  if (frontR+frontL>0 and backR+backL>0) or frontR+frontL+backL+backR==0:
-    stop()
+  if (frontLeft + frontRight) > (backLeft + backRight):
+    spinLeft(60)
+  elif frontLeft<(frontRight-200):
+    turnForward(60,30)
+  elif frontRight<(frontLeft-200):
+    turnForward(30,60)
   else:
-    q.ChangeDutyCycle(frontL*frontLeft*0.2)
-    b.ChangeDutyCycle(frontR*frontRight*0.2)
-
-  if frontRight+frontLeft<backRight+backLeft:
-    frontRight=0.2*frontRight
-    frontLeft=0.2*frontLeft
-    if frontLeft>100:
-      frontLeft=100
-    if frontRight>100:
-      frontRight=100
-    turnForward(frontRight,frontLeft)
-  else:
-    turnReverse(50,50)
+    forward(60)
