@@ -30,28 +30,28 @@ def stop():
     b.ChangeDutyCycle(0)
 
 # forward(speed): Sets both motors to move forward at speed. 0 <= speed <= 100
-def spinRight(speed):
+def forward(speed):
     p.ChangeDutyCycle(speed)
     q.ChangeDutyCycle(0)
     a.ChangeDutyCycle(speed)
     b.ChangeDutyCycle(0)
 
 # reverse(speed): Sets both motors to reverse at speed. 0 <= speed <= 100
-def spinLeft(speed):
+def reverse(speed):
     p.ChangeDutyCycle(0)
     q.ChangeDutyCycle(speed)
     a.ChangeDutyCycle(0)
     b.ChangeDutyCycle(speed)
 
 # spinLeft(speed): Sets motors to turn opposite directions at speed. 0 <= speed <= 100
-def forward(speed):
+def spinLeft(speed):
     p.ChangeDutyCycle(0)
     q.ChangeDutyCycle(speed)
     a.ChangeDutyCycle(speed)
     b.ChangeDutyCycle(0)
 
 # spinRight(speed): Sets motors to turn opposite directions at speed. 0 <= speed <= 100
-def reverse(speed):
+def spinRight(speed):
     p.ChangeDutyCycle(speed)
     q.ChangeDutyCycle(0)
     a.ChangeDutyCycle(0)
@@ -59,15 +59,15 @@ def reverse(speed):
 
 # turnForward(leftSpeed, rightSpeed): Moves forwards in an arc by setting different speeds. 0 <= leftSpeed,rightSpeed <= 100
 def turnForward(leftSpeed, rightSpeed):
-    p.ChangeDutyCycle(0)
-    q.ChangeDutyCycle(leftSpeed)
+    q.ChangeDutyCycle(0)
+    p.ChangeDutyCycle(leftSpeed)
     a.ChangeDutyCycle(rightSpeed)
     b.ChangeDutyCycle(0)
 
 # turnReverse(leftSpeed, rightSpeed): Moves backwards in an arc by setting different speeds. 0 <= leftSpeed,rightSpeed <= 100
 def turnReverse(leftSpeed, rightSpeed):
-    p.ChangeDutyCycle(leftSpeed)
-    q.ChangeDutyCycle(0)
+    q.ChangeDutyCycle(leftSpeed)
+    p.ChangeDutyCycle(0)
     a.ChangeDutyCycle(0)
     b.ChangeDutyCycle(rightSpeed)
  
@@ -86,11 +86,15 @@ while True:
   backRight=ReadChannel(2)
   backLeft=ReadChannel(3)
  
-  if (frontLeft + frontRight) > (backLeft + backRight):
-    spinLeft(60)
+  if (frontLeft + frontRight)-500 > (backLeft + backRight):
+    spinLeft(40)
+    print("spin")
   elif frontLeft<(frontRight-200):
-    turnForward(60,30)
+    turnForward(80,20)
+    print("turn fwd left")
   elif frontRight<(frontLeft-200):
-    turnForward(30,60)
+    turnForward(20,80)
+    print("turn fwd right")
   else:
-    forward(60)
+    forward(40)
+    print("fwd")
